@@ -1,0 +1,35 @@
+create table paciente (
+	id_paciente integer not null,
+	codigo_paciente serial not null unique,
+	nome_paciente varchar(255) not null,
+	cidade_paciente varchar(255) not null,
+	constraint pk_paciente primary key (id_paciente)
+);
+
+create table medico (
+	id_medico integer not null,
+	crm_medico varchar(13) not null unique,
+	nome_medico varchar(255) not null,
+	especialidade_medico varchar(255) not null,
+	constraint pk_medico primary key (id_medico)
+);
+
+create table atende (
+	id_atende integer not null,
+	id_paciente integer not null,
+	id_medico integer not null,
+	data_atende date not null,
+	constraint pk_atende primary key (id_atende),
+	foreign key (id_paciente) references paciente (id_paciente),
+	foreign key (id_medico) references medico (id_medico)
+);
+
+create table cirurgia (
+	id_cirurgia integer not null,
+	codigo_cirurgia varchar(255) not null unique,
+	data_cirurgia date not null,
+	descricao_cirurgia varchar(255) not null,
+	id_paciente integer not null,
+	constraint pk_cirurgia primary key (id_cirurgia),
+	foreign key (id_paciente) references paciente (id_paciente)
+);
