@@ -1,3 +1,16 @@
+--Banco de Dados--
+
+TrabalhoABD
+
+--Sequências criadas--
+
+create sequence sid_paciente;
+create sequence sid_medico;
+create sequence sid_atende;
+create sequence sid_cirurgia;
+
+--Tabelas do Banco--
+
 create table paciente (
 	id_paciente integer not null,
 	codigo_paciente serial not null unique,
