@@ -13,10 +13,10 @@ TrabalhoABD
 
 --Sequências criadas--
 
-create sequence sid_paciente;
-create sequence sid_medico;
-create sequence sid_atende;
-create sequence sid_cirurgia;
+create sequence sid_paciente start 1;
+create sequence sid_medico start 1;
+create sequence sid_atende start 1;
+create sequence sid_cirurgia start 1;
 
 --Tabelas do Banco--
 
@@ -72,14 +72,14 @@ insert into medico (id_medico, crm_medico, nome_medico, especialidade_medico) va
 	(nextval('sid_medico'), 876543, 'Dr. Almeida', 'Cardiologista'),
 	(nextval('sid_medico'), 543210, 'Dra. Costa', 'Dermatologista');
 
-insert into atende (id_atende, id_paciente, id_medico, data_consulta) values
+insert into atende (id_atende, id_paciente, id_medico, data_atende) values
 	(nextval('sid_atende'), 1, 1, '2024-04-01'),
 	(nextval('sid_atende'), 2, 2, '2024-04-02'),
 	(nextval('sid_atende'), 3, 3, '2024-04-03'),
 	(nextval('sid_atende'), 4, 4, '2024-04-04'),
 	(nextval('sid_atende'), 5, 5, '2024-04-05');
 
-insert into cirurgia (id_cirurgia, codigo, data_consulta, descricao, id_paciente) values
+insert into cirurgia (id_cirurgia, codigo_cirurgia, data_cirurgia, descricao_cirurgia, id_paciente) values
 	(nextval('sid_cirurgia'), 123, '2024-04-10', 'Cirurgia de apendicite', 1),
 	(nextval('sid_cirurgia'), 456, '2024-04-15', 'Cirurgia de hérnia', 2),
 	(nextval('sid_cirurgia'), 789, '2024-04-20', 'Cirurgia de catarata', 3),
