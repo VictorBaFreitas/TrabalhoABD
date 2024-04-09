@@ -86,6 +86,78 @@ insert into cirurgia (id_cirurgia, codigo_cirurgia, data_cirurgia, descricao_cir
 	(nextval('sid_cirurgia'), 321, '2024-04-25', 'Cirurgia cardíaca', 4),
 	(nextval('sid_cirurgia'), 654, '2024-04-30', 'Cirurgia plástica', 5);
 
+--Questão 2--
+
+create or replace function criar_cirurgia(
+    codigo_cirurgia_input varchar(255),
+    codigo_paciente_input integer,
+    data_cirurgia_input date,
+    descricao_cirurgia_input varchar(255)
+)
+returns void as
+$$
+begin
+   
+    if not exists (select codigo_paciente from paciente where codigo_paciente = codigo_paciente_input) then
+        raise exception 'paciente com código % não encontrado', codigo_paciente_input;
+    end if;
+
+    insert into cirurgia (id_cirurgia, codigo_cirurgia, data_cirurgia, descricao_cirurgia, id_paciente)
+    values (nextval('sid_cirurgia'), codigo_cirurgia_input, data_cirurgia_input, descricao_cirurgia_input, 
+            (select id_paciente from paciente where codigo_paciente = codigo_paciente_input));
+end;
+$$
+language plpgsql;
+
+exemplo:
+
+select criar_cirurgia('1100', 789012, '2024-04-10', 'cirurgia da fimose'); 2
+
+--Questão 3--
+
+create or replace function obter_desempenho_medicos(
+    data_inicial_input date,
+    data_final_input date
+)
+returns table (nome_medico varchar(255), quantidade_atendimentos bigint) as
+$$
+begin
+    return query
+    select m.nome_medico, count(a.id_atende) as quantidade_atendimentos
+    from medico m
+    inner join atende a on m.id_medico = a.id_medico
+    where a.data_atende between data_inicial_input and data_final_input
+    group by m.nome_medico;
+end;
+$$
+language plpgsql;
+
+exemplo:
+
+select * from obter_desempenho_medicos('2024-04-01', '2024-04-30');
+3
+
+--Questão 4--
+
+create or replace function verificar_data_cirurgia()
+returns trigger as
+$$
+begin
+    -- verifica se a data da cirurgia é maior que a data corrente
+    if new.data_cirurgia > current_date then
+        raise exception 'a data da cirurgia não pode ser no futuro.';
+    end if;
+    
+    return new;
+end;
+$$
+language plpgsql;
+
+create trigger before_insert_cirurgia
+before insert on cirurgia
+for each row
+execute function verificar_data_cirurgia();
+
 --Questão 5--
 
 Alternativa D
