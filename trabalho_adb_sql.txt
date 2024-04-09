@@ -97,11 +97,14 @@ create or replace function criar_cirurgia(
 returns void as
 $$
 begin
-   
-    if not exists (select codigo_paciente from paciente where codigo_paciente = codigo_paciente_input) then
-        raise exception 'paciente com código % não encontrado', codigo_paciente_input;
+    if exists (select codigo_cirurgia from cirurgia where codigo_cirurgia = codigo_cirurgia_input) then
+        raise exception 'Já existe uma cirurgia com o código %.', codigo_cirurgia_input;
     end if;
-
+    
+    if not exists (select codigo_paciente from paciente where codigo_paciente = codigo_paciente_input) then
+        raise exception 'Paciente com código % não encontrado.', codigo_paciente_input;
+    end if;
+    
     insert into cirurgia (id_cirurgia, codigo_cirurgia, data_cirurgia, descricao_cirurgia, id_paciente)
     values (nextval('sid_cirurgia'), codigo_cirurgia_input, data_cirurgia_input, descricao_cirurgia_input, 
             (select id_paciente from paciente where codigo_paciente = codigo_paciente_input));
