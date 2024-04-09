@@ -147,12 +147,8 @@ begin
         raise exception 'Paciente não encontrado!';
     end if;
 
-    if new.data_cirurgia <= current_date then
+    if new.data_cirurgia >= current_date then
         raise exception 'Data da cirurgia deve ser posterior à data corrente!';
-    end if;
-
-    if new.data_cirurgia < date_trunc('day', now()) then
-        raise exception 'Data da cirurgia é inválida!';
     end if;
 
     select count(*) into qtd_cirurgias
