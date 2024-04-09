@@ -109,7 +109,7 @@ end;
 $$
 language plpgsql;
 
-select criar_cirurgia('1100', 789012, '2024-04-10', 'cirurgia da fimose'); 2
+select criar_cirurgia('1100', 789012, '2024-04-10', 'Cirurgia de Catarata');
 
 --Questão 3--
 
