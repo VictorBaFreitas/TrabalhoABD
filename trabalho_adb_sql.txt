@@ -109,8 +109,6 @@ end;
 $$
 language plpgsql;
 
-exemplo:
-
 select criar_cirurgia('1100', 789012, '2024-04-10', 'cirurgia da fimose'); 2
 
 --Questão 3--
@@ -132,10 +130,7 @@ end;
 $$
 language plpgsql;
 
-exemplo:
-
 select * from obter_desempenho_medicos('2024-04-01', '2024-04-30');
-3
 
 --Questão 4--
 
