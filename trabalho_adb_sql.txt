@@ -1,3 +1,10 @@
+--Criando Banco de Dados--
+
+create database TrabalhoABD
+    with
+    owner = postgres  
+    connection limit = -1;
+
 --Banco de Dados--
 
 TrabalhoABD
@@ -15,7 +22,7 @@ create table paciente (
 	id_paciente integer not null,
 	codigo_paciente serial not null unique,
 	nome_paciente varchar(255) not null,
-	cidade_paciente varchar(255) not null,
+	idade_paciente varchar(255) not null,
 	constraint pk_paciente primary key (id_paciente)
 );
 
@@ -46,3 +53,45 @@ create table cirurgia (
 	constraint pk_cirurgia primary key (id_cirurgia),
 	foreign key (id_paciente) references paciente (id_paciente)
 );
+
+--Inserindo itens--
+
+insert into paciente (id_paciente, codigo_paciente, nome_paciente, idade_paciente) values
+	(nextval('sid_paciente'), 123456, 'João', 35),
+	(nextval('sid_paciente'), 789012, 'Maria', 28),
+	(nextval('sid_paciente'), 345678, 'Pedro', 42),
+	(nextval('sid_paciente'), 901234, 'Ana', 50),
+	(nextval('sid_paciente'), 567890, 'Mariana', 31);
+
+insert into medico (id_medico, crm_medico, nome_medico, especialidade_medico) values
+	(nextval('sid_medico'), 987654, 'Dr. Silva', 'Clínico Geral'),
+	(nextval('sid_medico'), 654321, 'Dr. Santos', 'Pediatra'),
+	(nextval('sid_medico'), 210987, 'Dra. Oliveira', 'Ginecologista'),
+	(nextval('sid_medico'), 876543, 'Dr. Almeida', 'Cardiologista'),
+	(nextval('sid_medico'), 543210, 'Dra. Costa', 'Dermatologista');
+
+insert into atende (id_atende, id_paciente, id_medico, data_consulta) values
+	(nextval('sid_atende'), 1, 1, '2024-04-01'),
+	(nextval('sid_atende'), 2, 2, '2024-04-02'),
+	(nextval('sid_atende'), 3, 3, '2024-04-03'),
+	(nextval('sid_atende'), 4, 4, '2024-04-04'),
+	(nextval('sid_atende'), 5, 5, '2024-04-05');
+
+insert into cirurgia (id_cirurgia, codigo, data_consulta, descricao, id_paciente) values
+	(nextval('sid_cirurgia'), 123, '2024-04-10', 'Cirurgia de apendicite', 1),
+	(nextval('sid_cirurgia'), 456, '2024-04-15', 'Cirurgia de hérnia', 2),
+	(nextval('sid_cirurgia'), 789, '2024-04-20', 'Cirurgia de catarata', 3),
+	(nextval('sid_cirurgia'), 321, '2024-04-25', 'Cirurgia cardíaca', 4),
+	(nextval('sid_cirurgia'), 654, '2024-04-30', 'Cirurgia plástica', 5);
+
+--Questão 5--
+
+Alternativa D
+
+--Questão 6--
+
+Alternativa E
+
+--Questão 7--
+
+Alternativa E
